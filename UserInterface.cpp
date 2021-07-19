@@ -28,6 +28,8 @@ void UserInterface::ShowFoodSelectionWindow()
     cout << "\t COUNT OF FOOD: " << CountOfFood << " \n";
     cout << "\t SUM OF ORDER: " << SumOfOrder << " \n";
     cout << "-----------------------------------------------------------------";
+    // This is place where be food list, need function that get foor list
+    cout << "-----------------------------------------------------------------";
     cout << endl;
     cout << "\t\t PLEASE ENTER A FOOD NUMBER FROM LIST: ";
 }
