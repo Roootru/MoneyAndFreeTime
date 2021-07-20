@@ -4,26 +4,40 @@ Food::Food()
 {
 }
 
-Food::Food(std::string n) : name(n), description(""), price(0.0F)
+Food::Food(char* nm) : price(0.0F)
 {
+	for (int i = 0; i < MAX; i++)
+		name[i] = nm[i];
 }
 
-Food::Food(std::string n, std::string desc) : name(n), description(desc), price(0.0F)
+Food::Food(char* nm, char* desc) : price(0.0F)
 {
+	for (int i = 0; i < MAX; i++)
+		name[i] = nm[i];
+	for (int i = 0; i < MAX; i++)
+		description[i] = desc[i];
 }
 
-Food::Food(std::string n, float pr) : name(n), description(""), price(pr)
+Food::Food(char* nm, float pr) : description("EMPTY"), price(pr)
 {
+	for (int i = 0; i < MAX; i++)
+		name[i] = nm[i];
 }
 
-Food::Food(std::string n, std::string desc, float pr) : name(n), description(desc), price(pr)
+Food::Food(char* nm, char* desc, float pr) : price(pr)
 {
+	for (int i = 0; i < MAX; i++)
+		name[i] = nm[i];
+	for (int i = 0; i < MAX; i++)
+		description[i] = desc[i];
 }
 
-void Food::setdata(std::string nm, std::string desc, float pr)
+void Food::setdata(char* nm, char* desc, float pr)
 {
-	name = nm;
-	description = desc;
+	for (int i = 0; i < MAX; i++)
+		name[i] = nm[i];
+	for (int i = 0; i < MAX; i++)
+		description[i] = desc[i];
 	price = pr;
 }
 

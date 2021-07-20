@@ -42,12 +42,12 @@ void UserInterface::ShowFoodSelectionWindow()
 
     //// считать данные о первом человеке
     file.seekg(0);
-    //file.read(reinterpret_cast<char*>(&food), sizeof(food));
+    file.read(reinterpret_cast<char*>(&food), sizeof(food));
     cout << setw(20) << "NAME" << setw(20) << "DESCRIPTION" << setw(20) << "PRICE" << endl;// вывести данные
-    while (file.read(reinterpret_cast<char*>(&food), sizeof(food))) // Выход по EOF
+    while (!file.eof()) // Выход по EOF
     {
         cout << setw(20) << food.name   << setw(20) << food.description << setw(20) << food.price << endl;
-        //file.read(reinterpret_cast<char*>(&food), sizeof(food));
+        file.read(reinterpret_cast<char*>(&food), sizeof(food));
     }
     cout << endl;
     cout << "-----------------------------------------------------------------\n";
@@ -67,7 +67,7 @@ void UserInterface::EnterDescriptionOfFood()
         return;
     }
     Food food; // создать объект person
-    string name, description;
+    char name[60], description[60];
     float price; // переменные для создания информации о еде
     char ch; // считывает все ли мы заполнили или нет
 
