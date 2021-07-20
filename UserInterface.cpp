@@ -17,9 +17,17 @@ void UserInterface::ShowMainMenu()
 
 void UserInterface::ShowFoodSelectionWindow()
 {
+    
     using namespace std;
+
+    ifstream file("FOOD.DAT", ios::binary); // создать выходной файл
+    if (!file.is_open())
+    {
+        cout << "FILE IS NOT OPEN!";
+        return;
+    }
+
     int CountOfFood = 0, SumOfOrder = 0;
-    fstream file; // создать входной/выходной файл
     Food food; // создать объект person
 
     cout << endl;
@@ -27,34 +35,37 @@ void UserInterface::ShowFoodSelectionWindow()
     cout << "\t\t FOOD SELECTION MENU \n";
     cout << endl;
 
-    file.open("FOOD.DAT", ios::app | ios::out |
-        ios::in | ios::binary);
-
     cout << "\t BUCKET: \n";
     cout << "\t COUNT OF FOOD: " << CountOfFood << " \n";
     cout << "\t SUM OF ORDER: " << SumOfOrder << " \n";
-    cout << "-----------------------------------------------------------------";
-    // This is place where be food list, need function that get foor list
-    file.seekg(0); // поставить указатель на начало файла
-    // считать данные о первом человеке
-    file.read(reinterpret_cast<char*>(&food), sizeof(food));
-    while (!file.eof()) // Выход по EOF
+    cout << "-----------------------------------------------------------------\n";
+
+    //// считать данные о первом человеке
+    file.seekg(0);
+    //file.read(reinterpret_cast<char*>(&food), sizeof(food));
+    cout << setw(20) << "NAME" << setw(20) << "DESCRIPTION" << setw(20) << "PRICE" << endl;// вывести данные
+    while (file.read(reinterpret_cast<char*>(&food), sizeof(food))) // Выход по EOF
     {
-        cout << setw(10) << "NAME" << "DESCRIPTION" << "PRICE";// вывести данные
-        cout << setw(10) << food.name << food.description << food.price;
-        file.read(reinterpret_cast<char*>(&food), sizeof(food));
+        cout << setw(20) << food.name   << setw(20) << food.description << setw(20) << food.price << endl;
+        //file.read(reinterpret_cast<char*>(&food), sizeof(food));
     }
     cout << endl;
-    cout << "-----------------------------------------------------------------";
+    cout << "-----------------------------------------------------------------\n";
     cout << endl;
     cout << "\t\t PLEASE ENTER A FOOD NUMBER FROM LIST: ";
+    file.close();
 }
 
 void UserInterface::EnterDescriptionOfFood()
 {
     using namespace std;
 
-    fstream file; // создать входной/выходной файл
+    ofstream file("FOOD.DAT", ios::app | ios::binary); // создать входной файл
+    if (!file.is_open())
+    {
+        cout << "FILE IS NOT OPEN!";
+        return;
+    }
     Food food; // создать объект person
     string name, description;
     float price; // переменные для создания информации о еде
@@ -65,9 +76,6 @@ void UserInterface::EnterDescriptionOfFood()
     cout << "\t\t FOOD INPUT MENU \n";
     cout << endl;
 
-    // открыть для дозаписи
-    file.open("FOOD.DAT", ios::app | ios::out |
-        ios::in | ios::binary);
     do // данные от пользователя - в файл
     {
         cout << "\t\t PLEASE ENTER AN INFORMATION ABOUT FOOD";

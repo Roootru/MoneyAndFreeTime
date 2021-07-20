@@ -11,6 +11,7 @@ int main()
 		{
 		case '1':
 			UI.ShowFoodSelectionWindow();
+			std::cout << "HI";
 			break;
 		case '2':
 			UI.EnterDescriptionOfFood();
