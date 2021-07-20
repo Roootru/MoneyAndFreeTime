@@ -1,5 +1,9 @@
 #include "Food.h"
 
+Food::Food()
+{
+}
+
 Food::Food(std::string n) : name(n), description(""), price(0.0F)
 {
 }
@@ -14,6 +18,13 @@ Food::Food(std::string n, float pr) : name(n), description(""), price(pr)
 
 Food::Food(std::string n, std::string desc, float pr) : name(n), description(desc), price(pr)
 {
+}
+
+void Food::setdata(std::string nm, std::string desc, float pr)
+{
+	name = nm;
+	description = desc;
+	price = pr;
 }
 
 FoodOrder::FoodOrder(Food* fd) : count(0)

@@ -13,6 +13,7 @@ int main()
 			UI.ShowFoodSelectionWindow();
 			break;
 		case '2':
+			UI.EnterDescriptionOfFood();
 			break;
 		case '3':
 			std::exit(-1);
