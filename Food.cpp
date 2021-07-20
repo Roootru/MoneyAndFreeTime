@@ -41,10 +41,25 @@ void Food::setdata(char* nm, char* desc, float pr)
 	price = pr;
 }
 
+float Food::getprice()
+{
+	return price;
+}
+
+FoodOrder::FoodOrder()
+{
+}
+
 FoodOrder::FoodOrder(Food* fd) : count(0)
 {
 }
 
 FoodOrder::FoodOrder(Food* fd, int ct) : count(ct)
 {
+}
+
+void FoodOrder::setdata(Food* fd, int ct)
+{
+	food = fd;
+	count = ct;
 }

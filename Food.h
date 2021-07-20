@@ -13,6 +13,7 @@ public:
 	Food(char* n, float pr);
 	Food(char* n, char* desc, float pr);
 	void setdata(char* nm, char* desc, float pr);
+	float getprice();
 	friend class UserInterface;
 private:
 	char name[MAX];
@@ -23,8 +24,11 @@ private:
 class FoodOrder
 {
 public:
+	FoodOrder();
 	FoodOrder(Food* fd);
 	FoodOrder(Food* fd, int ct);
+
+	void setdata(Food* fd, int ct);
 private:
 	Food* food;
 	int count;

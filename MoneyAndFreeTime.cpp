@@ -7,11 +7,11 @@ int main()
 	char answer = 0;
 	while (std::cin.get(answer))
 	{
+		UI.ShowMainMenu();
 		switch (answer)
 		{
 		case '1':
 			UI.ShowFoodSelectionWindow();
-			std::cout << "HI";
 			break;
 		case '2':
 			UI.EnterDescriptionOfFood();
