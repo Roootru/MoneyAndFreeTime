@@ -41,6 +41,11 @@ void Food::setdata(char* nm, char* desc, float pr)
 	price = pr;
 }
 
+char* Food::getname()
+{
+	return name;
+}
+
 float Food::getprice()
 {
 	return price;
@@ -54,7 +59,7 @@ FoodOrder::FoodOrder(Food* fd) : count(0)
 {
 }
 
-FoodOrder::FoodOrder(Food* fd, int ct) : count(ct)
+FoodOrder::FoodOrder(Food* fd, int ct) : food(fd), count(ct)
 {
 }
 
@@ -62,4 +67,9 @@ void FoodOrder::setdata(Food* fd, int ct)
 {
 	food = fd;
 	count = ct;
+}
+
+void FoodOrder::DisplayFoodOrderItem()
+{
+	std::cout << std::setw(20) << food->getname() << std::setw(20) << count << std::setw(20) << food->getprice() * count << std::endl;
 }

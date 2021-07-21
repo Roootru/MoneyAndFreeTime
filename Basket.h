@@ -10,8 +10,9 @@ public:
 	void DeletePositionFromTheBasket(int position);
 	int GetCountOfFoodInTheBasket();
 	int GetSumOfFoodInTheBasket();
+	void DisplayBasketItems();
 private:
-	std::list<FoodOrder*> fo;
+	std::vector<FoodOrder*> fo;
 	int top = 0;
 	float sum_b = 0;
 	int count_b = 0;

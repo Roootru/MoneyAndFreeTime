@@ -18,8 +18,6 @@ void UserInterface::ShowMainMenu()
 
 void UserInterface::ShowFoodSelectionWindow()
 {
-    system("cls");
-
     ifstream file("FOOD.DAT", ios::binary); // создать выходной файл
     if (!file.is_open())
     {
@@ -27,47 +25,54 @@ void UserInterface::ShowFoodSelectionWindow()
         return;
     }
 
-    Basket basket;
     vector<Food> foodslist;
+    Food contFood;
 
-    cout << endl;
-    cout << endl;
-    cout << "\t\t FOOD SELECTION MENU \n";
-    cout << endl;
-
-    int countofvector = 0;
-    file.read(reinterpret_cast<char*>(&foodslist[countofvector]), sizeof(foodslist[countofvector]));
-    cout << setw(20) << "NAME" << setw(20) << "DESCRIPTION" << setw(20) << "PRICE" << endl;// вывести данные
+    file.read(reinterpret_cast<char*>(&contFood), sizeof(contFood));
     while (!file.eof()) // ¬ыход по EOF
     {
-        countofvector++;
-        cout << setw(20) << foodslist[countofvector].name   << setw(20) << foodslist[countofvector].description << setw(20) << foodslist[countofvector].price << endl;
-        file.read(reinterpret_cast<char*>(&foodslist[countofvector]), sizeof(foodslist[countofvector]));
+        foodslist.push_back(contFood);
+        file.read(reinterpret_cast<char*>(&contFood), sizeof(contFood));
     }
-    cout << endl;
-    cout << "-----------------------------------------------------------------\n";
+    file.close();
 
-    char idfood, countfood;
+    int idfood, countfood;
+    Basket basket;
 
     while (true)
     {
+        system("cls");
+        cout << endl;
+        cout << endl;
+        cout << "\t\t FOOD SELECTION MENU \n";
+        cout << endl;
+        cout << setw(20) << "NAME" << setw(20) << "DESCRIPTION" << setw(20) << "PRICE" << endl;// вывести данные
+        for (int i = 0; i < foodslist.size(); i++)
+        {
+            cout << setw(20) << foodslist[i].name << setw(20) << foodslist[i].description << setw(20) << foodslist[i].price << endl;
+        }
+        cout << endl;
+        cout << "-----------------------------------------------------------------\n";
         cout << "\t\t BUCKET: \n";
-        cout << "\t\t COUNT OF FOOD: " << basket.GetCountOfFoodInTheBasket() << " \n";
-        cout << "\t\t SUM OF ORDER: " << basket.GetSumOfFoodInTheBasket() << " \n";
+        cout << "\t\t COUNT OF FOOD: "  << basket.GetCountOfFoodInTheBasket()   << endl;
+        cout << "\t\t SUM OF ORDER: "   << basket.GetSumOfFoodInTheBasket()     << endl;
         cout << "-----------------------------------------------------------------\n";
 
-        cout << "\n\t\t PLEASE ENTER A FOOD NUMBER FROM LIST OR TYPE WORD \"X\": ";
-        cin.get(idfood);
-        if (idfood == 'X')
+        cout << "\n\t\t PLEASE ENTER A FOOD NUMBER FROM LIST OR TYPE WORD \"322\": ";
+        cin >> idfood;
+        if (idfood == 322)
             break;
-        cout << "\n\t\t PLEASE ENTER A COUNT OF FOOD OR TYPE WORD \"X\": ";
-        cin.get(countfood);
-        if (idfood == 'X')
+        cout << "\n\t\t PLEASE ENTER A COUNT OF FOOD OR TYPE WORD \"322\": ";
+        cin >> countfood;
+        if (countfood == 322)
             break;
         basket.AddPositionToTheBasket(&(foodslist[idfood]), countfood);
     }
-
-    file.close();
+    cout << "\n\t\t Do you want open a busket menu? Your answer: ";
+    char ans = 'X';
+    cin >> ans;
+    if (ans == 'y')
+        BasketMenu(basket);
 }
 
 void UserInterface::EnterDescriptionOfFood()
@@ -104,4 +109,24 @@ void UserInterface::EnterDescriptionOfFood()
         cout << endl;
     } while (ch == 'y'); // выход по 'n'
 
+}
+
+void UserInterface::BasketMenu(Basket basket)
+{
+    system("cls");
+    cout << endl;
+    cout << endl;
+    cout << "\t\t BASKET MENU \n";
+    cout << endl;
+    cout << "-----------------------------------------------------------------\n";
+    cout << setw(20) << "NAME" << setw(20) << "COUNT" << setw(20) << "SUM" << endl;// вывести данные
+    cout << "-----------------------------------------------------------------\n";
+    basket.DisplayBasketItems();
+    cout << "-----------------------------------------------------------------\n";
+    cout << "TOTAL: " << setw(33) << basket.GetCountOfFoodInTheBasket() << setw(20) << basket.GetSumOfFoodInTheBasket() << endl;
+    cout << "-----------------------------------------------------------------\n";
+
+    char answer;
+    cout << "\t\t Thank you. ";
+    system("pause");
 }
