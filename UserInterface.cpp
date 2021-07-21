@@ -1,7 +1,7 @@
 #include "UserInterface.h"
 using namespace std;
 
-void UserInterface::ShowMainMenu()
+void UserInterface::MainMenu()
 {
     system("cls");
 
@@ -16,7 +16,7 @@ void UserInterface::ShowMainMenu()
     cout << "\t\t YOUR ANSWER: ";
 }
 
-void UserInterface::ShowFoodSelectionWindow()
+void UserInterface::FoodSelectionMenu()
 {
     ifstream file("FOOD.DAT", ios::binary); // создать выходной файл
     if (!file.is_open())
@@ -41,15 +41,13 @@ void UserInterface::ShowFoodSelectionWindow()
 
     while (true)
     {
-        system("cls");
-        cout << endl;
-        cout << endl;
-        cout << "\t\t FOOD SELECTION MENU \n";
-        cout << endl;
-        cout << setw(20) << "NAME" << setw(20) << "DESCRIPTION" << setw(20) << "PRICE" << endl;// вывести данные
+        DisplayStartOfWindow((char*)"FOOD SELECTION MENU");
+        //cout << setw(20) << "ID" << setw(20) << "NAME" << setw(20) << "DESCRIPTION" << setw(20) << "PRICE" << endl;// вывести данные
+        DisplayTitleOfFoodList((char*)"ID", (char*)"NAME", (char*)"DESCRIPTION", (char*)"PRICE");
         for (int i = 0; i < foodslist.size(); i++)
         {
-            cout << setw(20) << foodslist[i].name << setw(20) << foodslist[i].description << setw(20) << foodslist[i].price << endl;
+            //cout << setw(20) << (char)i << setw(20) << (char)foodslist[i].name << setw(20) << (char)foodslist[i].description << setw(20) << (char)foodslist[i].price << endl;
+            DisplayTitleOfFoodList((char*)i, (char*)foodslist[i].name, (char*)foodslist[i].description, (char*)"fisk");
         }
         cout << endl;
         cout << "-----------------------------------------------------------------\n";
@@ -58,24 +56,24 @@ void UserInterface::ShowFoodSelectionWindow()
         cout << "\t\t SUM OF ORDER: "   << basket.GetSumOfFoodInTheBasket()     << endl;
         cout << "-----------------------------------------------------------------\n";
 
-        cout << "\n\t\t PLEASE ENTER A FOOD NUMBER FROM LIST OR TYPE WORD \"322\": ";
+        cout << "\n\t\t PLEASE ENTER A FOOD NUMBER FROM LIST OR TYPE NUMBER \"0\": ";
         cin >> idfood;
-        if (idfood == 322)
+        if (idfood == 0)
             break;
-        cout << "\n\t\t PLEASE ENTER A COUNT OF FOOD OR TYPE WORD \"322\": ";
+        cout << "\n\t\t PLEASE ENTER A COUNT OF FOOD OR TYPE NUMBER \"0\": ";
         cin >> countfood;
-        if (countfood == 322)
+        if (countfood == 0)
             break;
-        basket.AddPositionToTheBasket(&(foodslist[idfood]), countfood);
+        basket.AddPositionToTheBasket(&(foodslist[idfood - 1]), countfood);
     }
-    cout << "\n\t\t Do you want open a busket menu? Your answer: ";
+    cout << "\n\t\t Do you want open a busket menu? Your answer (press \"y\" to go to basket menu): ";
     char ans = 'X';
     cin >> ans;
     if (ans == 'y')
         BasketMenu(basket);
 }
 
-void UserInterface::EnterDescriptionOfFood()
+void UserInterface::FoodEntryMenu()
 {
     system("cls");
 
@@ -129,4 +127,19 @@ void UserInterface::BasketMenu(Basket basket)
     char answer;
     cout << "\t\t Thank you. ";
     system("pause");
+}
+
+void UserInterface::DisplayStartOfWindow(char* nameofwindow)
+{
+    system("cls");
+    cout << endl;
+    cout << endl;
+    cout << "\t\t" << nameofwindow << "\n";
+    cout << endl;
+}
+
+template<class T>
+inline void UserInterface::DisplayTitleOfFoodList(T* id, T* nm, T* desc, T* pr)
+{
+    cout << setw(20) << id << setw(20) << nm << setw(20) << desc << setw(20) << pr << endl;
 }
