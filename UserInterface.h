@@ -17,7 +17,8 @@ public:
 	void DisplayFoodList(std::vector<Food>* foodlist);
 	void DisplayStartOfWindow(char* nameofwindow);
 	void DisplayBasketSubMenu(Basket& basket);
+	void AddFoodInFile();
+	void DeleteFoodFromFile(std::vector<Food>* foodlist);
 private:
 	std::fstream file;
-	std::vector<Food> foodlist;
 };
