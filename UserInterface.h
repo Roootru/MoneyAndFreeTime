@@ -5,12 +5,19 @@
 class UserInterface
 {
 public:
+	UserInterface();
+	~UserInterface();
+
 	void MainMenu();
 	void FoodSelectionMenu();
 	void FoodEntryMenu();
 	void BasketMenu(Basket basket);
 
+	void ReadFromFileIntoFoodList(std::vector<Food>* foodlist);
+	void DisplayFoodList(std::vector<Food>* foodlist);
 	void DisplayStartOfWindow(char* nameofwindow);
-	template <class T>
-	void DisplayTitleOfFoodList(T* id, T* nm, T* desc, T* pr);
+	void DisplayBasketSubMenu(Basket& basket);
+private:
+	std::fstream file;
+	std::vector<Food> foodlist;
 };

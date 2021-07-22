@@ -28,6 +28,6 @@ void Basket::DisplayBasketItems()
 {
 	for (int i = 0; i < fo.size(); i++)
 	{
-		fo[i]->DisplayFoodOrderItem();
+		fo[i]->DisplayFoodOrderItem(i);
 	}
 }

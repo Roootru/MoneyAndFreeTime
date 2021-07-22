@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IncludeFiles.h"
+
 class UserInterface;
 const int MAX = 50;
 
@@ -12,9 +13,12 @@ public:
 	Food(char* n, char* desc);
 	Food(char* n, float pr);
 	Food(char* n, char* desc, float pr);
+	
 	void setdata(char* nm, char* desc, float pr);
 	char* getname();
 	float getprice();
+	void DisplayFoodProperties(int count);
+
 	friend class UserInterface;
 private:
 	char name[MAX];
@@ -30,7 +34,7 @@ public:
 	FoodOrder(Food* fd, int ct);
 
 	void setdata(Food* fd, int ct);
-	void DisplayFoodOrderItem();
+	void DisplayFoodOrderItem(int count);
 private:
 	Food* food;
 	int count;
